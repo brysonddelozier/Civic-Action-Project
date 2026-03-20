@@ -27,3 +27,5 @@ We will make sure to hold each other accountable if a group member is not doing 
 Dylan Carter- I will be working the Framework and development portion of this project to help tie the whole thing together. I also will try to help everyone else with anything they need so that we can accomplish our goals in an efficient manner. 
 
 Bryson DeLozier- I will be working on the front-end HTML, CSS, Javascript, and AJAX. Like Dylan, I will also be there to support my group-mates if any issues arise.
+
+Rayden King - I will be designing the Schema for our databases using SQLite and ensure that the relation of the entities will be comprehensible for the other members of the team. I will also support members in the event of a problem.
