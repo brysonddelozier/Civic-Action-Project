@@ -25,3 +25,5 @@ D.Personal Accountability:
 We will make sure to hold each other accountable if a group member is not doing their fair share of the work. We will be sure to clearly communicate our expectations with each other.
 
 Dylan Carter- I will be working the Framework and development portion of this project to help tie the whole thing together. I also will try to help everyone else with anything they need so that we can accomplish our goals in an efficient manner. 
+
+Bryson DeLozier- I will be working on the front-end HTML, CSS, Javascript, and AJAX. Like Dylan, I will also be there to support my group-mates if any issues arise.
