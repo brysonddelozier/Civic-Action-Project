@@ -3,7 +3,7 @@ A. Team Structure:
 1. Leadership structure (individual, individual with rotating leadership, shared): 
 Rotating Leadership (potentially Bi-weekly)
 2. Decision-making policy (by consensus? by majority vote?):
-Majority Vote (if tied, the wheel decides)
+We will make decesions by consensus and unanimous consent. 
 3. Who is the team Recorder/Documentation Manager/Maintainer of all required turn-ins?
 Dylan will do it. 
 4. Day, time, and place for regular team meetings: 
