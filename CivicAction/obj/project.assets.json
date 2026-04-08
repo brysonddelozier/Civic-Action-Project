@@ -8,19 +8,19 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\rayde\\.nuget\\packages\\": {}
+    "/Users/dylancarter/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\CivicAction.csproj",
+      "projectUniqueName": "/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/CivicAction.csproj",
       "projectName": "CivicAction",
-      "projectPath": "C:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\CivicAction.csproj",
-      "packagesPath": "C:\\Users\\rayde\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\obj\\",
+      "projectPath": "/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/CivicAction.csproj",
+      "packagesPath": "/Users/dylancarter/.nuget/packages/",
+      "outputPath": "/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\rayde\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/dylancarter/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -68,7 +68,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
