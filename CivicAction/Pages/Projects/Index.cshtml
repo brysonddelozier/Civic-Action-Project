@@ -36,17 +36,7 @@
                 @if (isAdmin)
                 {
                     <td>@project.Student?.FirstMidName @project.Student?.LastName</td>
-                    <td>
-                        @if (project.IsApproved)
-                        {
-                            <span class="text-success">Approved</span>
-                        }
-                        else
-                        {
-                            <form method="post" asp-page-handler="Approve" asp-route-id="@project.Id">
-                                <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                            </form>
-                        }
+                    <td>@Html.DisplayFor(modelItem => project.IsApproved)
                     </td>
                 }
                 <td>

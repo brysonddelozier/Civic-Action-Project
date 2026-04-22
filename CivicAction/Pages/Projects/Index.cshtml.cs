@@ -26,14 +26,4 @@ public class IndexModel(CivicActionContext context, IHttpContextAccessor httpCon
 
         return Page();
     }
-    public async Task<IActionResult> OnPostApproveAsync(int id)
-    {
-        var project = await context.Projects.FindAsync(id);
-        if (project != null)
-        {
-            project.IsApproved = true;
-            await context.SaveChangesAsync();
-        }
-        return RedirectToPage();
-    }
 }
