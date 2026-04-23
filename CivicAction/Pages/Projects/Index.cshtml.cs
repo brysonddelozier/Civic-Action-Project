@@ -1,30 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CivicAction.Data;
+using CivicAction.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using CivicAction.Data;
-using CivicAction.Models;
 
-namespace CivicAction.Pages.Projects
+namespace CivicAction.Pages.Projects;
+
+public class IndexModel(CivicActionContext context, IHttpContextAccessor httpContext) : PageModel
 {
-    public class IndexModel : PageModel
+    public IList<Project> Projects { get; private set; } = [];
+
+    public async Task<IActionResult> OnGetAsync()
     {
-        private readonly CivicAction.Data.CivicActionContext _context;
+        var accountId = httpContext.HttpContext!.Session.GetInt32("AccountId");
+        if (accountId == null)
+            return RedirectToPage("/Login");
 
-        public IndexModel(CivicAction.Data.CivicActionContext context)
-        {
-            _context = context;
-        }
+        var isAdmin = httpContext.HttpContext.Session.GetString("IsAdmin") == "True";
 
-        public IList<Project> Project { get;set; } = default!;
+        Projects = isAdmin
+            ? await context.Projects.Include(p => p.Student).ToListAsync()
+            : await context.Projects.Include(p => p.Student)
+                .Where(p => p.StudentID == accountId)
+                .ToListAsync();
 
-        public async Task OnGetAsync()
-        {
-            Project = await _context.Projects
-                .Include(p => p.Student).ToListAsync();
-        }
+        return Page();
     }
 }

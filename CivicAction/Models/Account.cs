@@ -2,12 +2,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CivicAction.Models;
 
+
 public enum Grade
 {
     Freshman, Sophomore, Junior, Senior
 }
 
-public class Account
+public class Account 
 {
     public int Id { get; set; }
     public string LastName { get; set; } = string.Empty;

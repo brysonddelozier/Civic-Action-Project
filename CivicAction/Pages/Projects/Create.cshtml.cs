@@ -21,7 +21,7 @@ namespace CivicAction.Pages.Projects
 
         public IActionResult OnGet()
         {
-            ViewData["StudentID"] = new SelectList(_context.Accounts, "Id", "FirstMidName");
+            //ViewData["StudentID"] = new SelectList(_context.Accounts, "Id", "FirstMidName");
             return Page();
         }
 
@@ -47,12 +47,14 @@ namespace CivicAction.Pages.Projects
                         Console.WriteLine($"Validation Error: {error.ErrorMessage}");
                     }
                 }
-                ViewData["StudentID"] = new SelectList(_context.Accounts, "Id", "FirstMidName");
+                //ViewData["StudentID"] = new SelectList(_context.Accounts, "Id", "FirstMidName");
                 return Page();
             }
 
             try
             {
+                Project.StudentID = (int)HttpContext.Session.GetInt32("AccountId")!;
+                Project.IsApproved = false;
                 _context.Projects.Add(Project);
                 await _context.SaveChangesAsync();
             }
@@ -60,7 +62,7 @@ namespace CivicAction.Pages.Projects
             {
                 Console.WriteLine($"Save Error: {ex.Message}");
                 ModelState.AddModelError("", $"Error saving project: {ex.Message}");
-                ViewData["StudentID"] = new SelectList(_context.Accounts, "Id", "FirstMidName");
+                ViewData["StudentID"] = new SelectList(_context.Accounts.ToList(), "Id", "FirstMidName");
                 return Page();
             }
 

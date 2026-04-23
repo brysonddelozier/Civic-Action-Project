@@ -1,81 +1,48 @@
 @page
 @model CivicAction.Pages.Projects.IndexModel
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Projects";
+    var isAdmin = HttpContext.Session.GetString("IsAdmin") == "True";
 }
 
-<h1>Index</h1>
+<h1>Projects</h1>
+<p><a asp-page="Create">Add New Project</a></p>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].Hours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].Organization)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].Start)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].End)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].IsApproved)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].Student)
-            </th>
-            <th></th>
+            <th>Title</th>
+            <th>Organization</th>
+            <th>Hours</th>
+            <th>Start</th>
+            <th>End</th>
+            @if (isAdmin)
+            {
+                <th>Student</th>
+                <th>Approved</th>
+            }
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Project) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Organization)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Start)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.End)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
-            <td>
-                @if (item.Student != null)
+        @foreach (var project in Model.Projects)
+        {
+            <tr>
+                <td>@project.Title</td>
+                <td>@project.Organization</td>
+                <td>@project.Hours</td>
+                <td>@project.Start</td>
+                <td>@project.End</td>
+                @if (isAdmin)
                 {
-                    @Html.DisplayFor(modelItem => item.Student.FirstMidName) @Html.DisplayFor(modelItem => item.Student.LastName)
+                    <td>@project.Student?.FirstMidName @project.Student?.LastName</td>
+                    <td>@Html.DisplayFor(modelItem => project.IsApproved)
+                    </td>
                 }
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    <a asp-page="./Details" asp-route-id="@project.Id">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

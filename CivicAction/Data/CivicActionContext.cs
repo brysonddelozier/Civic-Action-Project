@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CivicAction.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CivicAction.Data;
 
