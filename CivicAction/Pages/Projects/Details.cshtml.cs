@@ -25,6 +25,9 @@ namespace CivicAction.Pages.Projects
         [BindProperty]
         public Update NewUpdate { get; set; } = new();
 
+        [BindProperty]
+        public string ReviewFeedback { get; set; } = string.Empty;
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -34,6 +37,8 @@ namespace CivicAction.Pages.Projects
 
             var project = await _context.Projects
                 .Include(p => p.Updates)
+                .Include(p => p.Student)
+                .Include(p => p.Verifications)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (project is not null)
@@ -55,6 +60,8 @@ namespace CivicAction.Pages.Projects
 
             var project = await _context.Projects
                 .Include(p => p.Updates)
+                .Include(p => p.Student)
+                .Include(p => p.Verifications)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (project is null)
@@ -84,6 +91,48 @@ namespace CivicAction.Pages.Projects
                 Updates = project.Updates.ToList();
                 return Page();
             }
+
+            return RedirectToPage(new { id });
+        }
+
+        public async Task<IActionResult> OnPostReviewAsync(int? id, string decision)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var adminId = HttpContext.Session.GetInt32("AccountId");
+            var isAdmin = HttpContext.Session.GetString("IsAdmin") == "True";
+
+            if (adminId == null || !isAdmin)
+            {
+                return RedirectToPage("/Login");
+            }
+
+            var project = await _context.Projects
+                .Include(p => p.Verifications)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (project is null)
+            {
+                return NotFound();
+            }
+
+            var approved = decision == "approve";
+
+            project.IsApproved = approved;
+
+            var verification = new Verification
+            {
+                ProjectID = project.Id,
+                AdminID = adminId.Value,
+                IsApproved = approved,
+                Feedback = ReviewFeedback
+            };
+
+            _context.Verifications.Add(verification);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage(new { id });
         }

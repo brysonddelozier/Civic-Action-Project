@@ -19,8 +19,13 @@ public class IndexModel(CivicActionContext context, IHttpContextAccessor httpCon
         var isAdmin = httpContext.HttpContext.Session.GetString("IsAdmin") == "True";
 
         Projects = isAdmin
-            ? await context.Projects.Include(p => p.Student).ToListAsync()
-            : await context.Projects.Include(p => p.Student)
+            ? await context.Projects
+                .Include(p => p.Student)
+                .Include(p => p.Verifications)
+                .ToListAsync()
+            : await context.Projects
+                .Include(p => p.Student)
+                .Include(p => p.Verifications)
                 .Where(p => p.StudentID == accountId)
                 .ToListAsync();
 

@@ -19,8 +19,8 @@
             @if (isAdmin)
             {
                 <th>Student</th>
-                <th>Approved</th>
             }
+            <th>Status</th>
             <th>Workshop</th>
             <th>Actions</th>
         </tr>
@@ -37,9 +37,21 @@
                 @if (isAdmin)
                 {
                     <td>@project.Student?.FirstMidName @project.Student?.LastName</td>
-                    <td>@Html.DisplayFor(modelItem => project.IsApproved)
-                    </td>
                 }
+                <td>
+                    @if (project.IsApproved)
+                    {
+                        <span class="badge bg-success">Approved</span>
+                    }
+                    else if (project.Verifications != null && project.Verifications.Any(v => !v.IsApproved))
+                    {
+                        <span class="badge bg-danger">Denied</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Pending Review</span>
+                    }
+                </td>
                 <td>@project.IsWorkshop</td>
                 <td>
                     <a asp-page="./Details" asp-route-id="@project.Id">Details</a>
