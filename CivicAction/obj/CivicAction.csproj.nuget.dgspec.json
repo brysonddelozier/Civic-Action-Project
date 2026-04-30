@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\CivicAction.csproj": {}
+    "C:\\Users\\antho\\Downloads\\Civic-Action-Project\\CivicAction\\CivicAction.csproj": {}
   },
   "projects": {
-    "c:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\CivicAction.csproj": {
+    "C:\\Users\\antho\\Downloads\\Civic-Action-Project\\CivicAction\\CivicAction.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\CivicAction.csproj",
+        "projectUniqueName": "C:\\Users\\antho\\Downloads\\Civic-Action-Project\\CivicAction\\CivicAction.csproj",
         "projectName": "CivicAction",
-        "projectPath": "c:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\CivicAction.csproj",
-        "packagesPath": "C:\\Users\\rayde\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\rayde\\Civic-Action-Project\\CivicAction\\obj\\",
+        "projectPath": "C:\\Users\\antho\\Downloads\\Civic-Action-Project\\CivicAction\\CivicAction.csproj",
+        "packagesPath": "C:\\Users\\antho\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\antho\\Downloads\\Civic-Action-Project\\CivicAction\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\rayde\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\antho\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
