@@ -3,6 +3,7 @@ using System;
 using CivicAction.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CivicAction.Migrations
 {
     [DbContext(typeof(CivicActionContext))]
-    partial class CivicActionContextModelSnapshot : ModelSnapshot
+    [Migration("20260510001552_AddDateAndTimeFieldsToUpdate")]
+    partial class AddDateAndTimeFieldsToUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
@@ -211,53 +214,6 @@ namespace CivicAction.Migrations
                     b.ToTable("Verification", (string)null);
                 });
 
-            modelBuilder.Entity("CivicAction.Models.VolunteerHour", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Hours")
-                        .HasColumnType("REAL");
-
-                    b.Property<int>("VolunteerOrganizationID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("WorkDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("WorkDescription")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VolunteerOrganizationID");
-
-                    b.ToTable("VolunteerHour");
-                });
-
-            modelBuilder.Entity("CivicAction.Models.VolunteerOrganization", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StudentID")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentID");
-
-                    b.ToTable("VolunteerOrganization");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -431,28 +387,6 @@ namespace CivicAction.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("CivicAction.Models.VolunteerHour", b =>
-                {
-                    b.HasOne("CivicAction.Models.VolunteerOrganization", "VolunteerOrganization")
-                        .WithMany("VolunteerHours")
-                        .HasForeignKey("VolunteerOrganizationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("VolunteerOrganization");
-                });
-
-            modelBuilder.Entity("CivicAction.Models.VolunteerOrganization", b =>
-                {
-                    b.HasOne("CivicAction.Models.AppUser", "Student")
-                        .WithMany("VolunteerOrganizations")
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -507,8 +441,6 @@ namespace CivicAction.Migrations
             modelBuilder.Entity("CivicAction.Models.AppUser", b =>
                 {
                     b.Navigation("Projects");
-
-                    b.Navigation("VolunteerOrganizations");
                 });
 
             modelBuilder.Entity("CivicAction.Models.Project", b =>
@@ -516,11 +448,6 @@ namespace CivicAction.Migrations
                     b.Navigation("Updates");
 
                     b.Navigation("Verifications");
-                });
-
-            modelBuilder.Entity("CivicAction.Models.VolunteerOrganization", b =>
-                {
-                    b.Navigation("VolunteerHours");
                 });
 #pragma warning restore 612, 618
         }
