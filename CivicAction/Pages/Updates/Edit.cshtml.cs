@@ -56,6 +56,13 @@ namespace CivicAction.Pages.Updates
                 return Page();
             }
 
+            if (!ProjectHasMoreUpdates(Update.ProjectId ?? -1))
+            {
+                Console.Write("We reached line 61");
+                var projectToUpdate = _context.Projects.Single(p => p.Id == Update.ProjectId);
+                projectToUpdate.Status = Status.Approved;
+                _context.Attach(projectToUpdate).State = EntityState.Modified;
+            }
             _context.Attach(Update).State = EntityState.Modified;
 
             try
@@ -82,9 +89,10 @@ namespace CivicAction.Pages.Updates
             return _context.Updates.Any(e => e.Id == id);
         }
 
-        private Project ProjectToUpdate(int ProjectId)
+        private bool ProjectHasMoreUpdates(int ProjectId)
         {
-            return _context.Projects.Single(p => p.Id == ProjectId);
+            var _projectUpdates = _context.Projects.Where(p => p.Id == ProjectId && p.Status == Status.Pending);
+            return _projectUpdates.Any();
         }
     }
 }
