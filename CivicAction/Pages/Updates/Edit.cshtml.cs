@@ -26,6 +26,8 @@ namespace CivicAction.Pages.Updates
         [BindProperty]
         public Update Update { get; set; } = default!;
 
+        //public Project Project { get; set; } = default!;
+
         public AppUser CurrentUser { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -42,7 +44,8 @@ namespace CivicAction.Pages.Updates
             {
                 return NotFound();
             }
-            Update = update;
+            Update = update;            
+
            ViewData["VerificationId"] = new SelectList(_context.Verifications, "Id", "Id");
             return Page();
         }
@@ -51,18 +54,48 @@ namespace CivicAction.Pages.Updates
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            CurrentUser = await _userManager.GetUserAsync(User);
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            if (!ProjectHasMoreUpdates(Update.ProjectId ?? -1))
+            /*var project =  await _context.Projects.FirstOrDefaultAsync(p => p.Id == Update.ProjectId);
+            if (project == null)
             {
-                Console.Write("We reached line 61");
-                var projectToUpdate = _context.Projects.Single(p => p.Id == Update.ProjectId);
-                projectToUpdate.Status = Status.Approved;
-                _context.Attach(projectToUpdate).State = EntityState.Modified;
+                return NotFound();
+            }*/
+
+            //Console.WriteLine("Line 80 value here: " + NumRemainingUpdates(project.Id));
+
+            if (await NumRemainingUpdates(Update.ProjectId ?? -1) == 1)
+            {
+                var project =  await _context.Projects.FirstOrDefaultAsync(p => p.Id == Update.ProjectId);
+                if (project == null)
+                {
+                    return NotFound();
+                }
+                project.Status = Status.Approved;
+                _context.Attach(Update).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProjectExists(project.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
+
             _context.Attach(Update).State = EntityState.Modified;
 
             try
@@ -89,10 +122,16 @@ namespace CivicAction.Pages.Updates
             return _context.Updates.Any(e => e.Id == id);
         }
 
-        private bool ProjectHasMoreUpdates(int ProjectId)
+        private bool ProjectExists(int id)
         {
-            var _projectUpdates = _context.Projects.Where(p => p.Id == ProjectId && p.Status == Status.Pending);
-            return _projectUpdates.Any();
+            return _context.Projects.Any(p => p.Id == id);
+        }        
+
+        private async Task<int> NumRemainingUpdates(int projectId)
+        {
+            return await _context.Updates
+                .AsNoTracking()
+                .CountAsync(u => u.ProjectId == projectId && u.Status == Status.Pending);
         }
     }
 }
