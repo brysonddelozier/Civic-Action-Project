@@ -27,7 +27,9 @@ public class CreateModel(CivicActionContext context, UserManager<AppUser> userMa
 
         try
         {
-            Project.StudentId = user.Id;
+            Project.StudentIds.Add(user.Id);
+            Project.Students.Add(user);
+            Project.Hours.Add(0);
             Project.IsWorkshop = false;
             context.Projects.Add(Project);
             await context.SaveChangesAsync();

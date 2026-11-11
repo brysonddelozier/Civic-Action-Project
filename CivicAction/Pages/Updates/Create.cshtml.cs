@@ -23,9 +23,8 @@ namespace CivicAction.Pages.Updates
 
         private void LoadDropdowns()
         {
-            ViewData["VerificationId"] = new SelectList(context.Verifications, "Id", "Id");
             string? userId = userManager.GetUserId(User);
-            var allUserProjects = context.Projects.Where(p => p.StudentId == userId);
+            var allUserProjects = context.Projects.Where(p => p.StudentIds.Contains(userId));
             var nonWorkshops = allUserProjects.Where(p => p.IsWorkshop == false);
             ViewData["ProjectId"] = new SelectList(nonWorkshops, "Id", "Title");
         }

@@ -34,9 +34,9 @@ namespace CivicAction.Pages.Projects
             IQueryable<Project> projectsIQ = from p in _context.Projects select p;
             if (!CurrentUser.IsAdmin)
             {
-                projectsIQ = projectsIQ.Where(p => p.StudentId == userId);
+                projectsIQ = projectsIQ.Where(p => p.StudentIds.Contains(userId));
             }
-            Project = await projectsIQ.Include(p => p.Student).ToListAsync();
+            Project = await projectsIQ.ToListAsync();
         }
     }
 }

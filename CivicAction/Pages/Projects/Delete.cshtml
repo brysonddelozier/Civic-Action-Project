@@ -72,6 +72,18 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Project.IsArchived)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project.StudentIds)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.StudentIds)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project.Students)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.Students)
+        </dd>        
     </dl>
     
     <form method="post">

@@ -34,7 +34,7 @@ namespace CivicAction.Pages.Updates
             {
                 updatesIQ = updatesIQ.Where(u => u.StudentId == userId);
             }
-            Update = await updatesIQ.Include(u => u.Project).Include(u => u.Verification).ToListAsync();
+            Update = await updatesIQ.Include(u => u.Project).ToListAsync();
         }
     }
 }

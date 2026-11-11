@@ -46,7 +46,6 @@ namespace CivicAction.Pages.Updates
             }
             Update = update;            
 
-           ViewData["VerificationId"] = new SelectList(_context.Verifications, "Id", "Id");
             return Page();
         }
 

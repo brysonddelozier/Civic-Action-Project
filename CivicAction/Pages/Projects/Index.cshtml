@@ -68,7 +68,10 @@ else
                 @if (Model.CurrentUser.IsAdmin)
                 {
                     <td>
-                        @Html.DisplayFor(modelItem => item.Student.LastName)
+                        @foreach (var student in item.Students)
+                            {
+                                <div>@student.FirstMidName @student.LastName</div>
+                            }
                     </td>
                 }
                 <td style="text-align: center;">

@@ -23,7 +23,4 @@ public class Update
 
     public string? StudentId { get; set; }
     public AppUser? Student { get; set; }
-    
-    public int? VerificationId { get; set; }
-    public Verification? Verification { get; set; }
 }

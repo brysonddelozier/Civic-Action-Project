@@ -18,7 +18,6 @@ public class Project
     [DataType(DataType.MultilineText)]
     public string Description { get; set; } = string.Empty;
 
-    public double Hours { get; set; }
     public string? Organization { get; set; } = string.Empty;
 
     [Display(Name = "Site Location")]
@@ -37,8 +36,7 @@ public class Project
     [Display(Name = "Archived")]
     public bool IsArchived { get; set; }
 
-    public string? StudentId { get; set; }
-    public AppUser? Student { get; set; }
-
-    public ICollection<Verification> Verifications { get; set; } = new List<Verification>();
+    public ICollection<string?> StudentIds { get; set; } = new List<string?>();
+    public ICollection<AppUser?> Students { get; set; } = new List<AppUser?>();
+    public ICollection<double> Hours { get; set; } = new List<double>();
 }

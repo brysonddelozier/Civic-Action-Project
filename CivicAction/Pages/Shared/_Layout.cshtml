@@ -41,17 +41,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-page="/Students/Index">Students</a>
                             </li>
-
-                            /*<li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-page="/Verifications/Index">Verifications</a>
-                            </li>*/
                         }
                         
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-page="/Projects/Index">Projects</a>
                         </li>
                     
-                        var numUserProj = CivicActionContext.Projects.Count(p => p.StudentId == currentUser.Id);
+                        var numUserProj = CivicActionContext.Projects.Count(p => p.StudentIds.Contains(currentUser.Id));
 
                         @if (currentUser.IsAdmin || numUserProj > 0)
                         {
