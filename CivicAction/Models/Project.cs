@@ -36,7 +36,7 @@ public class Project
     [Display(Name = "Archived")]
     public bool IsArchived { get; set; }
 
-    public ICollection<string?> StudentIds { get; set; } = new List<string?>();
-    public ICollection<AppUser?> Students { get; set; } = new List<AppUser?>();
-    public ICollection<double> Hours { get; set; } = new List<double>();
+    public List<string?> StudentIds { get; set; } = [];
+    public List<AppUser?> Students { get; set; } = [];
+    public List<double> Hours { get; set; } = [];
 }

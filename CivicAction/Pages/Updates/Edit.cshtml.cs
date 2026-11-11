@@ -60,21 +60,16 @@ namespace CivicAction.Pages.Updates
                 return Page();
             }
 
-            /*var project =  await _context.Projects.FirstOrDefaultAsync(p => p.Id == Update.ProjectId);
+            var project =  await _context.Projects.FirstOrDefaultAsync(p => p.Id == Update.ProjectId);
             if (project == null)
             {
                 return NotFound();
-            }*/
+            }
 
-            //Console.WriteLine("Line 80 value here: " + NumRemainingUpdates(project.Id));
 
+            // This conditional changes the Project's Status to 'Approved' if it doesn't have any more updates
             if (await NumRemainingUpdates(Update.ProjectId ?? -1) == 1)
             {
-                var project =  await _context.Projects.FirstOrDefaultAsync(p => p.Id == Update.ProjectId);
-                if (project == null)
-                {
-                    return NotFound();
-                }
                 project.Status = Status.Approved;
                 _context.Attach(Update).State = EntityState.Modified;
 
@@ -93,6 +88,17 @@ namespace CivicAction.Pages.Updates
                         throw;
                     }
                 }
+            }
+
+            // Add update hours to the project for this particular student
+            int index = 0;
+            while (index < project.Hours.Count())
+            {
+                if (project.StudentIds[index] == Update.StudentId)
+                {
+                    project.Hours[index] += Update.HoursDone;
+                }
+                index++;
             }
 
             _context.Attach(Update).State = EntityState.Modified;
