@@ -195,6 +195,10 @@ namespace CivicAction.Migrations
                     b.Property<string>("StudentId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");

@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 public class Update
 {
     public int Id { get; set; }
+
+    public string Title { get; set; } = string.Empty;
     
     [Required(ErrorMessage = "Description is required")]
     public string Description { get; set; } = string.Empty;
