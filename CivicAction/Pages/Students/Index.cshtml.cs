@@ -13,7 +13,7 @@ namespace CivicAction.Pages.Students
 {
     public class IndexModel : PageModel
     {
-        private readonly CivicAction.Data.CivicActionContext _context;
+        public CivicAction.Data.CivicActionContext _context;
         private readonly UserManager<AppUser> _userManager;
 
         public IndexModel(CivicAction.Data.CivicActionContext context, UserManager<AppUser> userManager)
@@ -22,7 +22,7 @@ namespace CivicAction.Pages.Students
             _userManager = userManager;
         }
 
-        public IList<AppUser> Student { get;set; } = default!;
+        public IList<AppUser> Students { get;set; } = default!;
         public AppUser? CurrentUser { get; private set; }
 
         public async Task<IActionResult> OnGetAsync()
@@ -32,7 +32,7 @@ namespace CivicAction.Pages.Students
 
             if (CurrentUser?.IsAdmin == true)
             {
-                Student = await _context.AppUsers.ToListAsync();
+                Students = await _context.AppUsers.Where(a => a.IsAdmin == false).ToListAsync();
                 return Page();
             }
             else
