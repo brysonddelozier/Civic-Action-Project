@@ -26,7 +26,7 @@ namespace CivicAction.Pages.Updates
         [BindProperty]
         public Update Update { get; set; } = default!;
 
-        //public Project Project { get; set; } = default!;
+        public Inclusion Inclusion { get; set; }
 
         public AppUser CurrentUser { get; set; } = default!;
 
@@ -68,7 +68,7 @@ namespace CivicAction.Pages.Updates
 
 
             // This conditional changes the Project's Status to 'Approved' if it doesn't have any more updates
-            if (await NumRemainingUpdates(Update.ProjectId ?? -1) == 1)
+            if (await NumRemainingUpdates(Update.ProjectId) == 1)
             {
                 project.Status = Status.Approved;
                 _context.Attach(Update).State = EntityState.Modified;
@@ -91,15 +91,14 @@ namespace CivicAction.Pages.Updates
             }
 
             // Add update hours to the project for this particular student
-            int index = 0;
-            while (index < project.Hours.Count())
+            var inclusion = _context.Inclusions.FirstOrDefault(i => i.StudentId == Update.StudentId && i.ProjectId == Update.ProjectId);
+            if (inclusion == null)
             {
-                if (project.StudentIds[index] == Update.StudentId)
-                {
-                    project.Hours[index] += Update.HoursDone;
-                }
-                index++;
+                return Page();
             }
+            Inclusion = inclusion;
+            Inclusion.Hours += Update.Hours;
+            // Make sure to add this inclusion back to the context
 
             _context.Attach(Update).State = EntityState.Modified;
 

@@ -13,14 +13,13 @@ public class Update
     public DateOnly Date { get; set; }
     
     [Required(ErrorMessage = "Hours are required")]
-    [Display(Name = "Hours")]
-    public double HoursDone { get; set; }
+    public double Hours { get; set; }
 
     public Status Status { get; set; }
 
-    public int? ProjectId { get; set; }
-    public Project? Project { get; set; } 
+    public required int ProjectId { get; set; }
+    public required Project Project { get; set; } 
 
-    public string? StudentId { get; set; }
-    public AppUser? Student { get; set; }
+    public required string StudentId { get; set; }
+    public required AppUser Student { get; set; }
 }

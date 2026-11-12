@@ -24,8 +24,12 @@ namespace CivicAction.Pages.Updates
         private void LoadDropdowns()
         {
             string? userId = userManager.GetUserId(User);
-            var allUserProjects = context.Projects.Where(p => p.StudentIds.Contains(userId));
-            var nonWorkshops = allUserProjects.Where(p => p.IsWorkshop == false);
+            IQueryable<Project> projectsIQ = from p in context.Projects select p;
+
+            var inclusions = context.Inclusions
+                .Where(i => i.StudentId == userId)
+                .ToList();
+            var nonWorkshops = projectsIQ.Where(p => inclusions.Select(i => i.ProjectId).Contains(p.Id) && p.IsWorkshop == false);
             ViewData["ProjectId"] = new SelectList(nonWorkshops, "Id", "Title");
         }
 

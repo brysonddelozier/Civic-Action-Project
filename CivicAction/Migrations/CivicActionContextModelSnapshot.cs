@@ -73,9 +73,6 @@ namespace CivicAction.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProjectId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("School")
                         .HasColumnType("TEXT");
 
@@ -98,9 +95,32 @@ namespace CivicAction.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.ToTable("Account", (string)null);
+                });
+
+            modelBuilder.Entity("CivicAction.Models.Inclusion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Hours")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Account", (string)null);
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Inclusion", (string)null);
                 });
 
             modelBuilder.Entity("CivicAction.Models.Project", b =>
@@ -114,10 +134,6 @@ namespace CivicAction.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("End")
-                        .HasColumnType("TEXT");
-
-                    b.PrimitiveCollection<string>("Hours")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsArchived")
@@ -138,10 +154,6 @@ namespace CivicAction.Migrations
 
                     b.Property<int?>("Status")
                         .HasColumnType("INTEGER");
-
-                    b.PrimitiveCollection<string>("StudentIds")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -165,16 +177,17 @@ namespace CivicAction.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("HoursDone")
+                    b.Property<double>("Hours")
                         .HasColumnType("REAL");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("StudentId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -318,22 +331,38 @@ namespace CivicAction.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CivicAction.Models.AppUser", b =>
+            modelBuilder.Entity("CivicAction.Models.Inclusion", b =>
                 {
-                    b.HasOne("CivicAction.Models.Project", null)
-                        .WithMany("Students")
-                        .HasForeignKey("ProjectId");
+                    b.HasOne("CivicAction.Models.Project", "Project")
+                        .WithMany("Inclusions")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CivicAction.Models.AppUser", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("CivicAction.Models.Update", b =>
                 {
                     b.HasOne("CivicAction.Models.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CivicAction.Models.AppUser", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
 
@@ -393,7 +422,7 @@ namespace CivicAction.Migrations
 
             modelBuilder.Entity("CivicAction.Models.Project", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("Inclusions");
                 });
 #pragma warning restore 612, 618
         }

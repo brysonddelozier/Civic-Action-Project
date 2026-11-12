@@ -1,4 +1,5 @@
 @page
+@using CivicAction.Models
 @using Microsoft.AspNetCore.Identity
 @model CivicAction.Pages.Projects.IndexModel
 @using CivicAction.Data
@@ -43,7 +44,7 @@ else
                     </th>
                 }
                 <th style="text-align: center;">
-                    @Html.DisplayNameFor(model => model.Project[0].Hours)
+                    Hours
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Project[0].Organization)
@@ -68,14 +69,11 @@ else
                 @if (Model.CurrentUser.IsAdmin)
                 {
                     <td>
-                        @foreach (var student in item.Students)
-                            {
-                                <div>@student.FirstMidName @student.LastName</div>
-                            }
+                        First Last
                     </td>
                 }
                 <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.Hours)
+                    @Html.DisplayFor(modelItem => item.Inclusions.Where(i => i.ProjectId == item.Id))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Organization)

@@ -22,6 +22,8 @@ namespace CivicAction.Pages.Projects
         [BindProperty]
         public Project Project { get; set; } = default!;
 
+        public List<Inclusion> Inclusions { get; set; } = new List<Inclusion>();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -52,6 +54,10 @@ namespace CivicAction.Pages.Projects
             if (project != null)
             {
                 Project = project;
+
+                // First, remove all Inclusions for this project
+                //var inclusions = await _context.Inclusions.
+
                 _context.Projects.Remove(Project);
                 await _context.SaveChangesAsync();
             }

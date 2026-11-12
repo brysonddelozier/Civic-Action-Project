@@ -49,7 +49,7 @@
 
                         @if (currentUser != null)
                         {
-                            var numUserProj = CivicActionContext.Projects.Count(p => p.StudentIds.Contains(currentUser.Id));
+                            var numUserProj = CivicActionContext.Inclusions.Count(i => i.StudentId == currentUser.Id);
 
                             @if (currentUser.IsAdmin || numUserProj > 0)
                             {
