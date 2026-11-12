@@ -38,6 +38,9 @@ else
             <th>
                 @Html.DisplayNameFor(model => model.Update[0].Description)
             </th>
+            <th>
+                Student
+            </th>
             <th style="text-align: center;">
                 @Html.DisplayNameFor(model => model.Update[0].Date)
             </th>
@@ -60,6 +63,9 @@ else
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @item.Student.FirstMidName @item.Student.LastName
             </td>
             <td style="text-align: center;">
                 @Html.DisplayFor(modelItem => item.Date)

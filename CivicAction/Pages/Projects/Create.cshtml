@@ -40,21 +40,6 @@
                 <span asp-validation-for="Project.Start" class="text-danger"></span>
             </div>
 
-            @if (Model.CurrentUser.IsAdmin)
-            {
-                <div class="form-group">
-                    <label asp-for="WorkshopStudents" class="control-label">Select a Project</label>
-                    <select asp-for="WorkshopStudents" class="form-control" asp-items="ViewBag.ProjectId"></select>
-                    <span asp-validation-for="WorkshopStudents" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="WorkshopHours" class="control-label">Workshop Hours</label>
-                    <input asp-for="WorkshopHours" class="form-control" />
-                    <span asp-validation-for="WorkshopHours" class="text-danger"></span>
-                </div>
-            }
-
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

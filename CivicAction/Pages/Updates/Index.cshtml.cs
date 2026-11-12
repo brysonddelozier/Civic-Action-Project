@@ -35,6 +35,12 @@ namespace CivicAction.Pages.Updates
                 updatesIQ = updatesIQ.Where(u => u.StudentId == userId);
             }
             Update = await updatesIQ.Include(u => u.Project).ToListAsync();
+            foreach (Update update in Update)
+            {
+                update.Student = await _userManager.FindByIdAsync(update.StudentId);
+            }
+
+
         }
     }
 }
