@@ -6,10 +6,9 @@
     ViewData["Title"] = "Index";
 }
 
-@if (User.Identity?.IsAuthenticated == true)
-{
-    <h1 style = "margin-top: 30px; margin-bottom: 20px" >Welcome, @Model.CurrentUser?.FirstMidName!</h1>
-}
+
+<h1 style = "margin-top: 30px; margin-bottom: 20px" >Students</h1>
+
 
 <table class="table">
     <thead>
