@@ -61,6 +61,8 @@ public class CreateModel(CivicActionContext context, UserManager<AppUser> userMa
                         {
                             Student = student,
                             StudentId = student.Id,
+                            FirstMidName = student.FirstMidName,
+                            LastName = student.LastName,
                             Project = Project,
                             ProjectId = Project.Id,
                             Hours = WorkshopHours ?? 0

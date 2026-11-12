@@ -8,6 +8,8 @@ public class Inclusion
 
     public required string StudentId { get; set; }
     public required AppUser Student { get; set; }
+    public string? FirstMidName { get; set; }
+    public string? LastName { get; set; }
 
     public required int ProjectId { get; set; }
     public required Project Project { get; set; }

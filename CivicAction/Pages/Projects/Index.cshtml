@@ -40,7 +40,7 @@ else
                 @if (Model.CurrentUser.IsAdmin)
                 {
                     <th>
-                        Student
+                        Students
                     </th>
                 }
                 <th style="text-align: center;">
@@ -68,8 +68,10 @@ else
                 </td>
                 @if (Model.CurrentUser.IsAdmin)
                     {
+                        
                         <td>
-                            Name
+                            @string.Join(", ", item.Inclusions
+                                .Select(i => $"{i.FirstMidName} {i.LastName}"))
                         </td>
                     }
                 <td style="text-align: center;">
