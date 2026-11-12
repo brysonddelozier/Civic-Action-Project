@@ -68,7 +68,7 @@ namespace CivicAction.Pages.Updates
 
 
             // This conditional changes the Project's Status to 'Approved' if it doesn't have any more updates
-            if (await NumRemainingUpdates(Update.ProjectId) == 1)
+            if (await NumRemainingUpdates(Update.ProjectId ?? -1) == 1)
             {
                 project.Status = Status.Approved;
                 _context.Attach(Update).State = EntityState.Modified;
@@ -96,9 +96,28 @@ namespace CivicAction.Pages.Updates
             {
                 return Page();
             }
-            Inclusion = inclusion;
-            Inclusion.Hours += Update.Hours;
-            // Make sure to add this inclusion back to the context
+
+            Console.WriteLine("Line 100: inclusion.Hours: " + inclusion.Hours + " Update.Hours: " + Update.Hours);
+            inclusion.Hours += Update.Hours;
+            
+            _context.Attach(Update).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!InclusionExists(Inclusion.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            
 
             _context.Attach(Update).State = EntityState.Modified;
 
@@ -129,7 +148,12 @@ namespace CivicAction.Pages.Updates
         private bool ProjectExists(int id)
         {
             return _context.Projects.Any(p => p.Id == id);
-        }        
+        } 
+
+        private bool InclusionExists(int id)
+        {
+            return _context.Inclusions.Any(i => i.Id == id);
+        }       
 
         private async Task<int> NumRemainingUpdates(int projectId)
         {

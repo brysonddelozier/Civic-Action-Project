@@ -17,9 +17,9 @@ public class Update
 
     public Status Status { get; set; }
 
-    public required int ProjectId { get; set; }
-    public required Project Project { get; set; } 
+    public int? ProjectId { get; set; }
+    public Project? Project { get; set; } 
 
-    public required string StudentId { get; set; }
-    public required AppUser Student { get; set; }
+    public string? StudentId { get; set; }
+    public AppUser? Student { get; set; }
 }

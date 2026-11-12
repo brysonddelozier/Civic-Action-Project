@@ -24,8 +24,9 @@ public class CreateModel(CivicActionContext context, UserManager<AppUser> userMa
 
     public List<AppUser> WorkshopStudents { get; set; } = new List<AppUser>();
 
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGet()
     {
+        CurrentUser = await userManager.GetUserAsync(User);
         LoadDropdowns();
         return Page();
     }
@@ -38,7 +39,7 @@ public class CreateModel(CivicActionContext context, UserManager<AppUser> userMa
 
     public async Task<IActionResult> OnPostAsync()
     {
-        var CurrentUser = await userManager.GetUserAsync(User);
+        CurrentUser = await userManager.GetUserAsync(User);
         if (CurrentUser == null) return RedirectToPage("/Account/Login");
         
         if (!ModelState.IsValid)

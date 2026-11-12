@@ -15,8 +15,8 @@
 
         <form method="post">
             <div class="form-group">
-                <label asp-for="Update.ProjectId" class="control-label">Select Students</label>
-                <select asp-for="Update.ProjectId" class="form-control" asp-items="ViewBag.StudentId"></select>
+                <label asp-for="Update.ProjectId" class="control-label">Select a Project</label>
+                <select asp-for="Update.ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
                 <span asp-validation-for="Update.ProjectId" class="text-danger"></span>
             </div>
             <div class="form-group">

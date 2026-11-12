@@ -40,6 +40,13 @@ namespace CivicAction.Pages.Projects
                     .ToListAsync();
                 projectsIQ = projectsIQ.Where(p => inclusions.Select(i => i.ProjectId).Contains(p.Id));
             }
+            else
+            {
+                var inclusions = await _context.Inclusions
+                    .Include(i => i.Project)
+                    .ToListAsync();
+                projectsIQ = projectsIQ.Where(p => inclusions.Select(i => i.ProjectId).Contains(p.Id));
+            }
             Project = await projectsIQ.ToListAsync();
         }
     }

@@ -15,6 +15,9 @@ namespace CivicAction.Pages.Updates
     public class CreateModel(CivicActionContext context, UserManager<AppUser> userManager) : PageModel
     {
 
+        string? CurrentUserId;
+        AppUser? CurrentUser;
+
         public IActionResult OnGet()
         {
             LoadDropdowns();
@@ -48,9 +51,15 @@ namespace CivicAction.Pages.Updates
             try
             {
                 string? userId = userManager.GetUserId(User);
+                if (userId == null)
+                {
+                    return Page();
+                }
                 Update.StudentId = userId;
-                Update.Status = Status.Pending;
+                Update.Student = await userManager.FindByIdAsync(userId);
                 var thisProject = context.Projects.Where(p => p.Id == Update.ProjectId).FirstOrDefault();
+                Update.Project = thisProject;
+                Update.Status = Status.Pending;
                 thisProject.Status = Status.Pending;
                 context.Updates.Add(Update);
                 await context.SaveChangesAsync();
