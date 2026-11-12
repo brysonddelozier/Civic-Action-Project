@@ -345,7 +345,7 @@ namespace CivicAction.Migrations
                         .IsRequired();
 
                     b.HasOne("CivicAction.Models.AppUser", "Student")
-                        .WithMany()
+                        .WithMany("Inclusions")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -419,6 +419,11 @@ namespace CivicAction.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CivicAction.Models.AppUser", b =>
+                {
+                    b.Navigation("Inclusions");
                 });
 
             modelBuilder.Entity("CivicAction.Models.Project", b =>

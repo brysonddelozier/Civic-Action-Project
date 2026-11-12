@@ -68,6 +68,7 @@ public class CreateModel(CivicActionContext context, UserManager<AppUser> userMa
                             Hours = WorkshopHours ?? 0
                         };
                         Project.Inclusions.Add(Inclusion);
+                        student.Inclusions.Add(Inclusion);
                     }
                     
                     Project.IsWorkshop = true;
@@ -90,12 +91,14 @@ public class CreateModel(CivicActionContext context, UserManager<AppUser> userMa
                     {
                         Student = CurrentUser,
                         StudentId = CurrentUser.Id,
+                        FirstMidName = CurrentUser.FirstMidName,
+                        LastName = CurrentUser.LastName,
                         Project = Project,
                         ProjectId = Project.Id,
                         Hours = 0,
-
                     };
                     Project.Inclusions.Add(Inclusion);
+                    CurrentUser.Inclusions.Add(Inclusion);
 
                     Project.IsWorkshop = false;
                     context.Projects.Add(Project);

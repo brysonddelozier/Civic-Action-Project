@@ -19,4 +19,6 @@ public class AppUser : IdentityUser
     public string? School { get; set; } = string.Empty;
     [Display(Name = "Is Admin")]    
     public bool IsAdmin { get; set; }
+
+    public ICollection<Inclusion> Inclusions { get; set; } = new List<Inclusion>();
 }
