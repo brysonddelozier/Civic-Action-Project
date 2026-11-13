@@ -56,7 +56,7 @@ namespace CivicAction.Pages.Updates
                     return Page();
                 }
                 Update.StudentId = userId;
-                Update.Student = await userManager.FindByIdAsync(userId);
+                Update.Student = await userManager.FindByIdAsync(userId); //This is the line that I don't think is working
                 var thisProject = context.Projects.Where(p => p.Id == Update.ProjectId).FirstOrDefault();
                 Update.Project = thisProject;
                 Update.Status = Status.Pending;

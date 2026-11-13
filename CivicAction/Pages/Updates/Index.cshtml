@@ -14,11 +14,14 @@ else
     <h1 style = "margin-top: 30px; margin-bottom: 20px"> Manage Updates </h1>
 }
 
+@if (Model.CurrentUser?.IsAdmin == false)
+{
+    <p>
+        <a class="btn-link" asp-page="Create">Add Update</a>
+    </p style = "margin-bottom: 20px">
+}
 
-<p>
-    <a class="btn-link" asp-page="Create">Update</a>
-</p style = "margin-bottom: 20px">
-@if(Model.CurrentUser?.IsAdmin == false && (Model.Update == null || !Model.Update.Any()))
+@if(Model.Update == null || !Model.Update.Any())
 {
     <div class = "text-center mp-4">
         <img src = "~/images/update.jpg"
@@ -33,10 +36,13 @@ else
     <thead>
         <tr>
             <th>
-                Project
+                Update
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Update[0].Description)
+                Student
+            </th>
+            <th>
+                Project
             </th>
             <th>
                 Student
@@ -57,12 +63,15 @@ else
 @foreach (var item in Model.Update) {
         <tr>
             <td>
-                <a class="nav-link" asp-page="./Details" asp-route-id="@item.Id">
-                    @Html.DisplayFor(modelItem => item.Project.Title)
+                <a class="nav-link" asp-page="./Edit" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Title)
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @item.Student.FirstMidName @item.Student.LastName
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Title)
             </td>
             <td>
                 @item.Student.FirstMidName @item.Student.LastName
@@ -77,10 +86,10 @@ else
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id" style="all: unset; cursor: pointer; margin-left: 10px; color: rgb(87, 87, 87);">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                <a asp-page="./Details" asp-route-id="@item.Id" style="all: unset; cursor: pointer; margin-left: 10px; color: rgb(87, 87, 87);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-heading" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                    <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
                     </svg>
                 </a> 
                 <a asp-page="./Delete" asp-route-id="@item.Id" style="all: unset; cursor: pointer; margin-left: 10px; color: rgb(87, 87, 87);">
